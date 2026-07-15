@@ -26,6 +26,7 @@ pub struct CooperativeContract;
 impl CooperativeContract {
     /// Initialize cooperative with an admin
     pub fn initialize(env: Env, admin: Address) {
+        assert!(!env.storage().instance().has(&DataKey::Info), "Already initialized");
         admin.require_auth();
         let info = CoopInfo {
             admin,

@@ -19,6 +19,7 @@ pub struct FarmerWalletContract;
 impl FarmerWalletContract {
     /// Initialize wallet for a farmer
     pub fn initialize(env: Env, owner: Address) {
+        assert!(!env.storage().instance().has(&WALLET), "Already initialized");
         owner.require_auth();
         let info = WalletInfo {
             owner: owner.clone(),
